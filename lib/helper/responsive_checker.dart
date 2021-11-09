@@ -1,7 +1,7 @@
 import 'package:flutter/rendering.dart';
 
-class ResponsiveCheker {
-  static DeviceType getDeviceType(BoxConstraints constraint) {
+class ResponsiveCheker{
+  static DeviceType getDeviceType(BoxConstraints constraint){
     if (constraint.maxWidth < 900) {
       return DeviceType.MOBILE;
     } else if (constraint.maxWidth < 1200) {
@@ -13,5 +13,9 @@ class ResponsiveCheker {
     }
   }
 }
-
-enum DeviceType { MOBILE, TABLET, DESKTOP, LARGEDESKTOP }
+enum DeviceType{
+  MOBILE,
+  TABLET,
+  DESKTOP,
+  LARGEDESKTOP
+}

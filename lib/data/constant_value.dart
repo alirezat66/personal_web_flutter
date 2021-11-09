@@ -23,4 +23,14 @@ class ConstantsValue{
     Article(title: 'Publish Widget', publishDate: 'Jul 2021', url: 'https://alirezataghizadeh66.medium.com/create-a-flutter-package-and-publish-it-in-pub-dev-f376c300ce90', image: 'images/publish_2.png', area: 'Flutter'),
     Article(title: 'Adminestrator permission', publishDate: 'Feb 2021', url: 'https://alirezataghizadeh66.medium.com/show-device-administration-dialog-in-android-67a623eba21d', image: 'images/publish_1.png', area: 'Android'),
   ];
+  static double kLargeLeftRightPadding = 65;
+  static double kThreeRowSpace = 30;
+  static double kLargePaddinBetweenTwoLayout = 60;
+  static double kSmallPaddingBetweenTwoLayout = 55;
+  static double kTitleAndSubtitlePadding = 25;
+  static double kSubtitleAndCaptionPadding = 15;
+  static double kMainTopAndBottomPadding = 120;
+  static double homeTopButtonPadding = 100;
+  static double personalInfoLargePadding = 76;
+  static double personalInfoSmallPadding = 32;
 }
