@@ -21,7 +21,10 @@ class ContactScreen extends StatelessWidget {
         width: fullWidth,
         color: Color(0xff191c26),
         child: Padding(
-            padding: EdgeInsets.only(left: 16),
+            padding: EdgeInsets.symmetric(
+              horizontal: (ResponsiveCheker.isDeviceDesktopWithContext(context)
+                  ? ConstantsValue.kLargeLeftRightPadding
+                  : ConstantsValue.kSmallLeftRightPadding)),
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               SizedBox(
