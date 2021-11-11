@@ -30,9 +30,8 @@ class ResponsiveCheker {
   }
 
   static bool isDeviceDesktop(BoxConstraints constraint, String from) {
-    print('from:$from');
+    
     var deviceType = getDeviceType(constraint);
-    print(deviceType);
     if (deviceType == DeviceType.LARGEDESKTOP ||
         deviceType == DeviceType.DESKTOP) {
       return true;
@@ -41,7 +40,6 @@ class ResponsiveCheker {
   }
   static bool isDeviceDesktopWithContext(BuildContext context) {
     var deviceType = getDeviceTypeWithWidth(context);
-    print(deviceType);
     if (deviceType == DeviceType.LARGEDESKTOP ||
         deviceType == DeviceType.DESKTOP) {
       return true;

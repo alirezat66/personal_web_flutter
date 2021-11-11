@@ -7,6 +7,7 @@ import 'package:personal_website/screen/contact_screen.dart';
 import 'package:personal_website/screen/home_screen.dart';
 import 'package:personal_website/screen/portfolio_screen.dart';
 import 'package:personal_website/widget/sidebar_widget.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 class MainScreen extends StatefulWidget {
   MainScreen({Key? key}) : super(key: key);
@@ -17,7 +18,10 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
   int selectedIndex = 0;
-  ScrollController _scrollController = ScrollController();
+  ItemScrollController _scrollController = ItemScrollController();
+  final ItemPositionsListener itemPositionsListener =
+      ItemPositionsListener.create();
+
   late AnimationController _animationController;
 
   @override
@@ -32,10 +36,9 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraint) {
-      
       return Scaffold(
         body: Stack(
-          alignment: Alignment.center,
+          alignment: Alignment.topRight,
           children: [
             Container(
               color: Theme.of(context).accentColor,
@@ -50,9 +53,8 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                       onSelectedChange: (index) {
                         setState(() {
                           selectedIndex = index;
-                          _scrollController.animateTo(
-                              selectedIndex *
-                                  MediaQuery.of(context).size.height,
+                          _scrollController.scrollTo(
+                              index: selectedIndex,
                               duration: Duration(milliseconds: 300),
                               curve: Curves.ease);
                         });
@@ -60,7 +62,10 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                       selectedIndex: selectedIndex,
                     ),
                   ),
-                  _chosenTab(),
+                  Container(
+                      height: MediaQuery.of(context).size.height,
+                      width:ResponsiveCheker.isDeviceDesktop(constraint, "main")? MediaQuery.of(context).size.width - 320 : MediaQuery.of(context).size.width,
+                      child: _chosenTab()),
                 ],
               ),
             ),
@@ -73,7 +78,8 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                   child: GestureDetector(
                     onTap: () {
                       setState(() {
-                        _scrollController.animateTo(0,
+                        _scrollController.scrollTo(
+                            index: 0,
                             duration:
                                 Duration(milliseconds: selectedIndex * 500),
                             curve: Curves.ease);
@@ -104,8 +110,8 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                   onSelectedChange: (index) {
                     setState(() {
                       selectedIndex = index;
-                      _scrollController.animateTo(
-                          selectedIndex * MediaQuery.of(context).size.height,
+                      _scrollController.scrollTo(
+                          index: selectedIndex,
                           duration: Duration(milliseconds: 300),
                           curve: Curves.ease);
                     });
@@ -150,23 +156,35 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
   }
 
   double drawerPadding = -320;
+  var widgets = [
+    HomeScreen(),
+    AboutScreen(),
+    PortfolioScreen(),
+    BlogScreen(),
+    ContactScreen(),
+  ];
   Widget _chosenTab() {
-    return SingleChildScrollView(
-      controller: _scrollController,
-      child: Column(
-        children: [
-          HomeScreen(),
-          AboutScreen(),
-          PortfolioScreen(),
-          BlogScreen(),
-          ContactScreen(),
-        ],
-      ),
-    );
+    return ScrollablePositionedList.builder(
+        itemCount: widgets.length,
+        physics: ScrollPhysics(),
+        itemPositionsListener: itemPositionsListener,
+        itemScrollController: _scrollController,
+        itemBuilder: (context, index) {
+          return widgets[index];
+        });
   }
 
   void _setListener() {
-    _scrollController.addListener(() {
+    itemPositionsListener.itemPositions.addListener(() {
+      if (selectedIndex !=
+          itemPositionsListener.itemPositions.value.last.index) {
+        selectedIndex = itemPositionsListener.itemPositions.value.last.index;
+        print('selectedIndex = $selectedIndex');
+        setState(() {});
+      }
+    });
+
+    /* _scrollController.addListener(() {
       if ((_scrollController.position.pixels.round() /
                   MediaQuery.of(context).size.height.round())
               .round() !=
@@ -177,8 +195,6 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
               .round();
         });
       }
-    });
+    }); */
   }
-
-  
 }
