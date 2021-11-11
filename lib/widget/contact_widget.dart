@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
 class ContactWidget extends StatelessWidget {
@@ -17,10 +18,10 @@ class ContactWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: width,
-      height: 180,
-      color: Color(0xff111419),
+      decoration: BoxDecoration(
+          color: Color(0xff111419), borderRadius: BorderRadius.circular(8)),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 50),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 25),
         child: Row(
           children: [
             Container(
@@ -48,7 +49,11 @@ class ContactWidget extends StatelessWidget {
                 SizedBox(
                   height: 8,
                 ),
-                Text(description, style: Theme.of(context).textTheme.subtitle1),
+                Container(
+                    width: width / 1.8,
+                    child: AutoSizeText(description,
+                        maxLines: 1,
+                        style: Theme.of(context).textTheme.subtitle1)),
               ],
             )
           ],

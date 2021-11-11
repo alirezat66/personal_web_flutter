@@ -6,7 +6,9 @@ import 'package:personal_website/widget/menu_item_widget.dart';
 class SideBarWidget extends StatefulWidget {
   final SelectedChange onSelectedChange;
   final int selectedIndex;
-  SideBarWidget({Key? key, required this.onSelectedChange, required this.selectedIndex}) : super(key: key);
+  SideBarWidget(
+      {Key? key, required this.onSelectedChange, required this.selectedIndex})
+      : super(key: key);
 
   @override
   _SideBarWidgetState createState() => _SideBarWidgetState();
@@ -24,6 +26,7 @@ class _SideBarWidgetState extends State<SideBarWidget> {
     Size size = MediaQuery.of(context).size;
     return Container(
       width: 320,
+      height: size.height,
       color: Colors.black,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -55,7 +58,7 @@ class _SideBarWidgetState extends State<SideBarWidget> {
                       MenuItemWidget(
                         iconData: menuList.items[index].iconData,
                         text: menuList.items[index].title,
-                        isSelected:index == widget.selectedIndex,
+                        isSelected: index == widget.selectedIndex,
                         onSelect: () {
                           menuList = menuList.selectIndex(index);
                           setState(() {});
@@ -117,5 +120,5 @@ class _SideBarWidgetState extends State<SideBarWidget> {
     );
   }
 }
-typedef SelectedChange = void Function(int);
 
+typedef SelectedChange = void Function(int);

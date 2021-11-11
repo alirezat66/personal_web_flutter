@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 import 'package:google_maps/google_maps.dart' as gMap;
+import 'package:personal_website/data/constant_value.dart';
+import 'package:personal_website/helper/responsive_checker.dart';
 import 'package:personal_website/widget/contact_widget.dart';
 import 'dart:ui' as ui;
 
@@ -11,73 +13,80 @@ class ContactScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double fullWidth = MediaQuery.of(context).size.width - 320;
+    double fullWidth = ResponsiveCheker.isDeviceDesktopWithContext(context)
+        ? MediaQuery.of(context).size.width - 320
+        : MediaQuery.of(context).size.width;
 
     return Container(
-        width: MediaQuery.of(context).size.width - 320,
+        width: fullWidth,
         color: Color(0xff191c26),
         child: Padding(
             padding: EdgeInsets.only(left: 16),
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               SizedBox(
-                height: 110,
+                height: ConstantsValue.kMainTopAndBottomPadding,
               ),
               Text(
                 'Contact',
                 style: Theme.of(context).textTheme.headline2,
               ),
               SizedBox(
-                height: 30,
+                height: ConstantsValue.kTitleAndSubtitlePadding,
               ),
               Text('You can contact me whit below contact info.',
                   style: Theme.of(context).textTheme.subtitle1),
               SizedBox(
-                height: 40,
+                height: ConstantsValue.kSmallPaddingBetweenTwoLayout,
               ),
-              Row(
+              Column(
                 children: [
-                  Container(
-                    width: fullWidth/3 + 80,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        ContactWidget(
-                          icon: IconlyBroken.call,
-                          title: 'Phone',
-                          description: '+905366526420',
-                          width: fullWidth / 3 ,
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        height: 400,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            ContactWidget(
+                              icon: IconlyBroken.call,
+                              title: 'Phone',
+                              description: '+905366526420',
+                              width: fullWidth / 3,
+                            ),
+                            ContactWidget(
+                              icon: IconlyBroken.chat,
+                              title: 'Gmail',
+                              description: 'alirezataghizadeh66@gmail.com',
+                              width: fullWidth / 3,
+                            ),
+                            ContactWidget(
+                              icon: IconlyBroken.location,
+                              title: 'Address:',
+                              description: 'Turkey, Izmir, Balatcik',
+                              width: fullWidth / 3,
+                            ),
+                          ],
                         ),
-                        SizedBox(
-                          height: 30,
-                        ),
-                        ContactWidget(
-                          icon: IconlyBroken.chat,
-                          title: 'Gmail',
-                          description: 'alirezataghizadeh66@gmail.com',
-                          width: fullWidth / 3 ,
-                        ),
-                        SizedBox(
-                          height: 30,
-                        ),
-                        ContactWidget(
-                          icon: IconlyBroken.location,
-                          title: 'Address:',
-                          description: 'Turkey, Izmir, Balatcik',
-                          width: fullWidth / 3 ,
-                        ),
-                      ],
-                    ),
+                      ),
+                      SizedBox(
+                        width: ConstantsValue.kSmallLeftRightPadding,
+                      ),
+                      Expanded(
+                          child: Container(
+                        height: 400,
+                        child: getMap(),
+                      ))
+                    ],
                   ),
-                  Expanded(
-                      child: SizedBox(
-                    height: 600,
-                    
-                    child: getMap(),
-                  ))
                 ],
               ),
-              SizedBox(height: 160,)
+              SizedBox(
+                height: 160,
+              )
             ])));
   }
 
@@ -111,4 +120,3 @@ class ContactScreen extends StatelessWidget {
     return HtmlElementView(viewType: htmlId);
   }
 }
-

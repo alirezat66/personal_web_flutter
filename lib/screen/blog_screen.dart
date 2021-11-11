@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:personal_website/data/constant_value.dart';
+import 'package:personal_website/helper/responsive_checker.dart';
 import 'package:personal_website/widget/blog_item.dart';
 
 class BlogScreen extends StatelessWidget {
@@ -9,7 +10,9 @@ class BlogScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var list = ConstantsValue.articles;
     return Container(
-      width: MediaQuery.of(context).size.width - 320,
+      width: ResponsiveCheker.isDeviceDesktopWithContext(context)
+          ? MediaQuery.of(context).size.width - 320
+          : MediaQuery.of(context).size.width,
       color: Color(0xff111419),
       child: Padding(
         padding: const EdgeInsets.only(left: 16),
@@ -17,31 +20,31 @@ class BlogScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
-              height: 110,
+              height: ConstantsValue.kMainTopAndBottomPadding,
             ),
             Text(
               'Blog',
               style: Theme.of(context).textTheme.headline2,
             ),
-            SizedBox(height: 50),
+            SizedBox(height: ConstantsValue.kTitleAndSubtitlePadding),
             Text(
                 'Here you can read some of my published articles about\nsoftware engineering or mobile developing.',
                 style: Theme.of(context).textTheme.subtitle1),
-            SizedBox(height: 50),
-            SizedBox(
-                height: 550,
-                child: Center(
-                  child: ListView.builder(
-                    itemBuilder: (context, index) {
-                      return BlogItem(item: list[index]);
-                    },
-                    itemCount: list.length,
-                    scrollDirection: Axis.horizontal,
-                    shrinkWrap: true,
-                  ),
+            SizedBox(height: ConstantsValue.kLargePaddinBetweenTwoLayout),
+            Container(
+                constraints: BoxConstraints(maxHeight: 800,minHeight:0),
+                child: GridView.builder(
+                  itemBuilder: (context, index) {
+                    return BlogItem(item: list[index]);
+                  },
+                  itemCount: list.length,
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 3,childAspectRatio: 2/2.4),
                 )),
             SizedBox(
-              height: 110,
+              height: ConstantsValue.kMainTopAndBottomPadding,
             ),
           ],
         ),
@@ -49,4 +52,3 @@ class BlogScreen extends StatelessWidget {
     );
   }
 }
-

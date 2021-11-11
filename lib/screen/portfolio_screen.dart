@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:personal_website/data/constant_value.dart';
+import 'package:personal_website/helper/responsive_checker.dart';
 import 'package:personal_website/widget/portfo_item.dart';
 
 class PortfolioScreen extends StatelessWidget {
@@ -9,38 +10,51 @@ class PortfolioScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var list = ConstantsValue.portfolioItems;
     return Container(
-      width: MediaQuery.of(context).size.width - 320,
+      width: ResponsiveCheker.isDeviceDesktopWithContext(context)
+          ? MediaQuery.of(context).size.width - 320
+          : MediaQuery.of(context).size.width,
       color: Color(0xff191c26),
       child: Padding(
-        padding: EdgeInsets.only(left: 16),
+        padding: EdgeInsets.symmetric(
+            horizontal: (ResponsiveCheker.isDeviceDesktopWithContext(context)
+                ? ConstantsValue.kLargeLeftRightPadding
+                : ConstantsValue.kSmallLeftRightPadding)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
-              height: 110,
+              height: ConstantsValue.kMainTopAndBottomPadding,
             ),
             Text(
               'Portfolio',
               style: Theme.of(context).textTheme.headline2,
             ),
             SizedBox(
-              height: 30,
+              height: ConstantsValue.kTitleAndSubtitlePadding,
             ),
             Text(
                 'In below list, you can see some detail about projects that I participated in it.',
                 style: Theme.of(context).textTheme.subtitle1),
             SizedBox(
-              height: 40,
+              height: ConstantsValue.kSmallPaddingBetweenTwoLayout,
             ),
-            SizedBox(
-              height: 600,
-              child: ListView.builder(
-                itemBuilder: (context, index) {
-                  return PortfoItem(item: list[index]);
-                },
-                itemCount: list.length,
-                scrollDirection: Axis.horizontal,
-                shrinkWrap: true,
+            Container(
+              constraints: BoxConstraints(
+                minHeight: 450,
+                maxHeight: 800,
+              ),
+              width: MediaQuery.of(context).size.width,
+              child: Center(
+                child: GridView.builder(
+                  itemBuilder: (context, index) {
+                    return PortfoItem(item: list[index]);
+                  },
+                  itemCount: list.length,
+                  
+                  shrinkWrap: true, 
+                  physics: NeverScrollableScrollPhysics(),
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
+                ),
               ),
             ),
             SizedBox(
@@ -52,5 +66,3 @@ class PortfolioScreen extends StatelessWidget {
     );
   }
 }
-
-

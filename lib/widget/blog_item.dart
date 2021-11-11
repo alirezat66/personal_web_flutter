@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:personal_website/data/model/article.dart';
 import 'package:universal_html/html.dart' as html;
@@ -57,15 +58,12 @@ class _BlogItemState extends State<BlogItem> with TickerProviderStateMixin {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ClipRRect(
-                child: Container(
-                  width: 400,
-                  height: 400,
+                child: AspectRatio(
+                  aspectRatio: 1,
                   child: ScaleTransition(
                     scale: _animation,
                     child: Image.asset(
                       widget.item.image,
-                      width: 400,
-                      height: 400,
                     ),
                   ),
                 ),
@@ -75,8 +73,9 @@ class _BlogItemState extends State<BlogItem> with TickerProviderStateMixin {
               Text('${widget.item.publishDate} - ${widget.item.area}',
                   style: Theme.of(context).textTheme.subtitle2),
               SizedBox(height: 8),
-              Text(
+              AutoSizeText(
                 '${widget.item.title}',
+                maxLines: 1,
                 style: Theme.of(context)
                     .textTheme
                     .headline3!
