@@ -30,6 +30,7 @@ class ConstantsValue{
   static double kSmallPaddingBetweenTwoLayout = 55;
   static double kTitleAndSubtitlePadding = 25;
   static double kSubtitleAndCaptionPadding = 15;
+  static double kTitleAndSubtitleMobile = 8;
   static double kMainTopAndBottomPadding = 120;
   static double kHomeTopButtonPadding = 100;
   static double kHomeConstraintWidth  = 540;
