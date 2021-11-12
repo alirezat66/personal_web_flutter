@@ -35,55 +35,52 @@ class _PortfoItemState extends State<PortfoItem> {
         onTap: () {
           html.window.open(widget.item.url, "_blank");
         },
-        child: Padding(
-          padding: const EdgeInsets.only(right: 32),
-          child: Stack(
-            alignment: Alignment.bottomCenter,
-            children: [
-              AnimatedOpacity(
-                duration: Duration(milliseconds: 300),
-                opacity: isHover ? 0 : 1,
-                child: Image.asset(
-                  widget.item.firstImage,
-                  scale: 1,
-                  fit: BoxFit.fill,
-                ),
+        child: Stack(
+          alignment: Alignment.bottomCenter,
+          children: [
+            AnimatedOpacity(
+              duration: Duration(milliseconds: 300),
+              opacity: isHover ? 0 : 1,
+              child: Image.asset(
+                widget.item.firstImage,
+                scale: 1,
+                fit: BoxFit.fill,
               ),
-              AnimatedOpacity(
-                duration: Duration(milliseconds: 300),
-                opacity: isHover ? 1 : 0,
-                child: Image.asset(
-                  widget.item.secondImage,
-                  scale: 1,
-                  fit: BoxFit.fill,
-                ),
+            ),
+            AnimatedOpacity(
+              duration: Duration(milliseconds: 300),
+              opacity: isHover ? 1 : 0,
+              child: Image.asset(
+                widget.item.secondImage,
+                scale: 1,
+                fit: BoxFit.fill,
               ),
-              AnimatedPositioned(
-                  bottom: isHover ? 40 : -200,
-                  duration: Duration(milliseconds: 500),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Container(
-                      color: Colors.black,
-                      child: Column(
-                        children: [
-                          Text(widget.item.projectName,
-                              style: Theme.of(context).textTheme.headline3),
-                          Container(
-                            width: 320,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: AutoSizeText(widget.item.projectDesc,
-                                  maxLines: 3,
-                                  style: Theme.of(context).textTheme.subtitle2),
-                            ),
+            ),
+            AnimatedPositioned(
+                bottom: isHover ? 40 : -200,
+                duration: Duration(milliseconds: 500),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Container(
+                    color: Colors.black,
+                    child: Column(
+                      children: [
+                        Text(widget.item.projectName,
+                            style: Theme.of(context).textTheme.headline3),
+                        Container(
+                          width: 320,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: AutoSizeText(widget.item.projectDesc,
+                                maxLines: 3,
+                                style: Theme.of(context).textTheme.subtitle2),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                  )),
-            ],
-          ),
+                  ),
+                )),
+          ],
         ),
       ),
     );
