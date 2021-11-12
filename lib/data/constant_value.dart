@@ -25,6 +25,7 @@ class ConstantsValue{
   ];
   static double kLargeLeftRightPadding = 65;
   static double kSmallLeftRightPadding = 20;
+  static double kMobileItemLeftRightPadding = 40;
   static double kThreeRowSpace = 30;
   static double kLargePaddinBetweenTwoLayout = 60;
   static double kSmallPaddingBetweenTwoLayout = 55;

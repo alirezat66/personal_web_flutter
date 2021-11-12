@@ -53,18 +53,22 @@ class PortfolioMobileWidget extends StatelessWidget {
               height: ConstantsValue.kSmallPaddingBetweenTwoLayout,
             ),
             Center(
-              child: ListView.separated(
-                separatorBuilder: (context, index) {
-                  return SizedBox(
-                    height: ConstantsValue.kSubtitleAndCaptionPadding,
-                  );
-                },
-                itemBuilder: (context, index) {
-                  return PortfoItem(item: list[index]);
-                },
-                itemCount: list.length,
-                physics: NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: ConstantsValue.kMobileItemLeftRightPadding),
+                child: ListView.separated(
+                  separatorBuilder: (context, index) {
+                    return SizedBox(
+                      height: ConstantsValue.kSubtitleAndCaptionPadding,
+                    );
+                  },
+                  itemBuilder: (context, index) {
+                    return PortfoItem(item: list[index]);
+                  },
+                  itemCount: list.length,
+                  physics: NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                ),
               ),
             ),
             SizedBox(
@@ -131,7 +135,9 @@ class PortfolioDesktopAndTabletWidget extends StatelessWidget {
                   shrinkWrap: true,
                   physics: NeverScrollableScrollPhysics(),
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 3,crossAxisSpacing: 16,mainAxisSpacing: 16),
+                      crossAxisCount: 3,
+                      crossAxisSpacing: 16,
+                      mainAxisSpacing: 16),
                 ),
               ),
             ),

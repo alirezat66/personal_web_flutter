@@ -51,17 +51,20 @@ class BlogMobileWidget extends StatelessWidget {
                 'Here you can read some of my published articles about\nsoftware engineering or mobile developing.',
                 style: Theme.of(context).textTheme.subtitle1),
             SizedBox(height: ConstantsValue.kLargePaddinBetweenTwoLayout),
-            ListView.separated(
-              itemBuilder: (context, index) {
-                return BlogItem(item: list[index]);
-              },
-              itemCount: list.length,
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              separatorBuilder: (BuildContext context, int index) {
-                return SizedBox(
-                    height: ConstantsValue.kSubtitleAndCaptionPadding);
-              },
+            Padding(
+              padding:  EdgeInsets.all(ConstantsValue.kMobileItemLeftRightPadding),
+              child: ListView.separated(
+                itemBuilder: (context, index) {
+                  return BlogItem(item: list[index]);
+                },
+                itemCount: list.length,
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                separatorBuilder: (BuildContext context, int index) {
+                  return SizedBox(
+                      height: ConstantsValue.kSubtitleAndCaptionPadding);
+                },
+              ),
             ),
             SizedBox(
               height: ConstantsValue.kTitleAndSubtitlePadding,
