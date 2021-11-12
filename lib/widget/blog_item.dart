@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:personal_website/data/model/article.dart';
 import 'package:universal_html/html.dart' as html;
@@ -51,39 +52,34 @@ class _BlogItemState extends State<BlogItem> with TickerProviderStateMixin {
         onTap: () {
           html.window.open(widget.item.url, "_blank");
         },
-        child: Padding(
-          padding: const EdgeInsets.only(right: 30),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              ClipRRect(
-                child: Container(
-                  width: 400,
-                  height: 400,
-                  child: ScaleTransition(
-                    scale: _animation,
-                    child: Image.asset(
-                      widget.item.image,
-                      width: 400,
-                      height: 400,
-                    ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ClipRRect(
+              child: AspectRatio(
+                aspectRatio: 1,
+                child: ScaleTransition(
+                  scale: _animation,
+                  child: Image.asset(
+                    widget.item.image,
                   ),
                 ),
-                borderRadius: BorderRadius.circular(8),
               ),
-              SizedBox(height: 20),
-              Text('${widget.item.publishDate} - ${widget.item.area}',
-                  style: Theme.of(context).textTheme.subtitle2),
-              SizedBox(height: 8),
-              Text(
-                '${widget.item.title}',
-                style: Theme.of(context)
-                    .textTheme
-                    .headline3!
-                    .copyWith(fontWeight: FontWeight.w700),
-              )
-            ],
-          ),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            SizedBox(height: 20),
+            Text('${widget.item.publishDate} - ${widget.item.area}',
+                style: Theme.of(context).textTheme.subtitle2),
+            SizedBox(height: 8),
+            AutoSizeText(
+              '${widget.item.title}',
+              maxLines: 1,
+              style: Theme.of(context)
+                  .textTheme
+                  .headline3!
+                  .copyWith(fontWeight: FontWeight.w700),
+            )
+          ],
         ),
       ),
     );
